@@ -1,0 +1,58 @@
+<div class="bg-white p-8 rounded-sm shadow-[0_5px_6px_-3px_rgba(0,0,0,0.3)] shadow-black w-96 m-auto mt-20">
+  <h2 class="text-2xl font-semibold font-sans mb-4">Sign in</h2>
+  <form [formGroup]="form">
+    <div class="mb-4">
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        placeholder="Username"
+        class="mt-1 p-2 rounded w-full outline-0 border-[.1rem] border-gray-400 placeholder-gray-400 text-[.9rem]"
+        [ngClass]="formError.username.hasError ? 'border-2 border-red-400' : ''"
+        (input)="onUsernameChange()">
+      <span
+        *ngIf="formError.username.hasError"
+        class="text-[0.9rem] text-red-400 font-medium">{{ formError.username.error}}</span>
+    </div>
+    <div class="mb-4">
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        formControlName="password"
+        class="mt-1 p-2 rounded w-full outline-0 border-[.1rem] border-gray-400 placeholder-gray-400 text-[.9rem]"
+        [ngClass]="formError.password.hasError ? 'border-2 border-red-400' : ''"
+        (input)="onPasswordChange()">
+      <span
+        *ngIf="formError.password.hasError"
+        class="text-[0.9rem] text-red-400 font-medium">{{ formError.password.error}}</span>
+    </div>
+    <div *ngIf="hasBackendError" class="mb-4 mt-1 p-2 rounded w-full bg-red-100 flex justify-center">
+     <span
+       *ngIf="(error$ | async) as error"
+       class="text-[0.9rem] text-red-400 font-normal">{{ error.details | titlecase }}</span>
+    </div>
+    <div class="mb-4 text-blue-500 text-[0.9rem] font-semibold">Forgot password?</div>
+    <button type="submit"
+            class="mb-6 bg-blue-500 text-white py-2 px-4 rounded-2xl w-full text-[0.9rem]"
+            (click)="onSubmit()"
+            [ngClass]="formError.username.hasError || formError.password.hasError || hasBackendError ? '' : 'hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200'"
+            [disabled]="formError.username.hasError || formError.password.hasError || hasBackendError"
+    >
+      <svg
+        *ngIf="isSubmitting$ | async"
+        class="animate-spin h-5 w-5 mr-2 text-white inline-block"
+        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+      >
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.937l3-3.646z"></path>
+      </svg>
+      Sign in
+    </button>
+    <div class="flex flex-row justify-center mb-4 text-[0.9rem] font-semibold">
+      <span class="font-semibold mr-2">New to ExpenseRec?</span>
+      <a routerLink="/signup" class="text-blue-500">Join now</a>
+    </div>
+  </form>
+</div>
+
