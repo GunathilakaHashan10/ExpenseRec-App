@@ -10,17 +10,21 @@ import {AppComponent} from './app.component';
 import {AuthComponent} from './modules/auth/auth.component';
 import {AuthModule} from "./modules/auth/auth.module";
 import {environment} from "../environments/environment";
+import {DashboardModule} from "@app/modules/dashboard/dashboard.module";
+import {ComponentsModule} from "@app/components/components.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     AuthModule,
+    DashboardModule,
+    ComponentsModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -29,6 +33,8 @@ import {environment} from "../environments/environment";
     EffectsModule.forRoot([])
   ],
   providers: [],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
